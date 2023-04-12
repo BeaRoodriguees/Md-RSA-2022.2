@@ -27,11 +27,6 @@ void mod(bigint result, bigint num1, bigint num2)
     mpz_mod(result, num1, num2);
 }
 
-void pow(bigint result, bigint num1, bigint num2)
-{
-    mpz_pow(result, num1, num2);
-}
-
 void mdc(bigint result, bigint num1, bigint num2)
 {
     if(mpz_cmp_si(num2, 0) == 0)
