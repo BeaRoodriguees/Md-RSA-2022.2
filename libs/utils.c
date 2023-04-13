@@ -23,11 +23,3 @@ void map_int_to_char(char *c, bigint num){
         *c = num_int + 4;
     }
 }
-
-void set_int(bigint result, int num){
-    mpz_set_si(result, num);
-}
-
-int compare_int(bigint num1, int num2){
-    return mpz_cmp_si(num1, num2);
-}
