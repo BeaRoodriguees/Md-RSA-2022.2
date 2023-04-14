@@ -3,13 +3,12 @@
 typedef mpz_t bigint;
 
 void map_char_to_int(bigint result, char c){
-    int num_char = c - '0';
-    if(num_char >= 65 && num_char <= 90){
-        mpz_set_si(result, num_char-63);
-    }else if(num_char >= 97 && num_char <= 122){
-        mpz_set_si(result, num_char-95);
-    }else if(num_char == 32){
-        mpz_set_si(result, num_char-4);
+    if(c >= 65 && c <= 90){
+        mpz_set_si(result, c-63);
+    }else if(c >= 97 && c <= 122){
+        mpz_set_si(result, c-95);
+    }else if(c == 32){
+        mpz_set_si(result, c-4);
     }
 }
 
