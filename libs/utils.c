@@ -14,11 +14,9 @@ void map_char_to_int(bigint result, char c){
 
 void map_int_to_char(char *c, bigint num){
     int num_int = mpz_get_si(num);
-    if(num_int >= 1 && num_int <= 26){
-        *c = num_int + 64;
-    }else if(num_int >= 27 && num_int <= 52){
-        *c = num_int + 96;
-    }else if(num_int == 53){
-        *c = num_int + 4;
+    if(num_int >= 2 && num_int <= 27){
+        *c = num_int + 63;
+    }if(num_int==28){
+        *c = 32;
     }
 }
