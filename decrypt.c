@@ -53,7 +53,6 @@ int loadAndDecryptMessage(mpz_t d, mpz_t n)
         while(gmp_fscanf(encryptedMessageFile, "%Zd", encryptedChar) != EOF)
         {
             mod_exp(decryptedChar, encryptedChar, d, n);
-            gmp_printf("%Zd ", decryptedChar);
             map_int_to_char(&c, decryptedChar);
 
             gmp_fprintf(decryptedMessageFile, "%c", c);
@@ -72,7 +71,7 @@ int loadAndDecryptMessage(mpz_t d, mpz_t n)
 
 }
 
-int main(){
+int decrypt(){
     mpz_t n, p, q, d, e;
     mpz_inits(n, p, q, d, e, NULL);
     
@@ -88,8 +87,6 @@ int main(){
     {
         exit(EXIT_FAILURE);
     }
-
-    gmp_printf("e = %Zd  d = %Zd", e, d);
 
     mpz_clears(n, p, q, d, e, NULL);
     exit(EXIT_SUCCESS);
