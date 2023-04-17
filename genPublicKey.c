@@ -6,7 +6,7 @@
 
 int exportPublicKey(const mpz_t n, const mpz_t e)
 {
-    FILE *publicKey = fopen("publickey", "w");
+    FILE *publicKey = fopen("publickey.txt", "w");
     if (publicKey)
     {
         gmp_fprintf(publicKey, "%Zd %Zd",n,e);
@@ -45,7 +45,7 @@ int loadPqeKey()
     mpz_t p, q, e, n, d;
     mpz_inits(p, q, e, n, d, NULL);
 
-    FILE *pqeKey = fopen("pqekey", "r");
+    FILE *pqeKey = fopen("pqekey.txt", "r");
     if (pqeKey)
     {
         mpz_inp_str(p, pqeKey, 10);
