@@ -59,3 +59,21 @@ void mod_exp(mpz_t result, mpz_t base, mpz_t exp, mpz_t m)
     mpz_clear(base_t);
     mpz_clear(expaux);
 }
+
+int is_prime(mpz_t num, mpz_t aux){
+    mpz_t aux_mod;
+    mpz_init(aux_mod);
+
+	while(mpz_cmp(num, aux) > 0){
+        mpz_mod(aux_mod, num, aux);
+
+        if (mpz_cmp_si(aux_mod, 0) == 0){
+            return 0;
+        }
+
+        mpz_add_ui(aux, aux, 1);
+    }
+
+    mpz_clear(aux_mod);
+    return 1;
+}
