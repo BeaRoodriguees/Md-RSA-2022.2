@@ -67,9 +67,8 @@ int is_prime(mpz_t num, mpz_t aux){
 	while(mpz_cmp(num, aux) > 0){
         mpz_mod(aux_mod, num, aux);
 
-        if (mpz_cmp_si(aux_mod, 0) == 0){
+        if (mpz_cmp_si(aux_mod, 0) == 0)
             return 0;
-        }
 
         mpz_add_ui(aux, aux, 1);
     }
