@@ -60,19 +60,37 @@ void mod_exp(mpz_t result, mpz_t base, mpz_t exp, mpz_t m)
     mpz_clear(expaux);
 }
 
-int is_prime(mpz_t num, mpz_t aux){
-    mpz_t aux_mod;
-    mpz_init(aux_mod);
+int is_prime(mpz_t num)
+{
+    if (mpz_cmp_si(num, 2) < 0)
+    {
+        return 0;
+    }
+    else if (mpz_cmp_si(num, 2) == 0)
+    {
+        return 1;
+    }
+    mpz_t aux_mod, aux, sqrt_num;
+    mpz_init_set_si(aux, 2);
+    mpz_inits(aux_mod, sqrt_num, NULL);
 
-	while(mpz_cmp(num, aux) > 0){
+    mpz_mod(aux_mod, num, aux);
+    if (mpz_cmp_si(aux_mod, 0) == 0)
+    {
+        return 0;
+    }
+    mpz_add_ui(aux, aux, 1);
+
+    mpz_sqrt(sqrt_num, num);
+    while (mpz_cmp(sqrt_num, aux) > 0)
+    {
         mpz_mod(aux_mod, num, aux);
 
         if (mpz_cmp_si(aux_mod, 0) == 0)
             return 0;
 
-        mpz_add_ui(aux, aux, 1);
+        mpz_add_ui(aux, aux, 2);
     }
-
-    mpz_clear(aux_mod);
+    mpz_clears(aux_mod, aux, sqrt_num, NULL);
     return 1;
 }
