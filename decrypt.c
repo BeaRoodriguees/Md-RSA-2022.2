@@ -71,7 +71,7 @@ int loadAndDecryptMessage(mpz_t d, mpz_t n)
 
 }
 
-int decrypt(){
+int main(){
     mpz_t n, p, q, d, e;
     mpz_inits(n, p, q, d, e, NULL);
     

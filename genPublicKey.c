@@ -37,7 +37,7 @@ void generate_public_key(const mpz_t p, const mpz_t q, const mpz_t e, mpz_t n) {
     exportPublicKey(n, e);
 }
 
-int loadPqeKey()
+int main()
 {
     mpz_t p, q, e, n;
     mpz_inits(p, q, e, n, NULL);
@@ -54,7 +54,7 @@ int loadPqeKey()
     }
     else
     {
-        printf("O arquivo que contém a chave pública não existe.\n");
+        printf("O arquivo que contém os números primos (p, q, e) não existe.\n");
         return 0;
     }
 }

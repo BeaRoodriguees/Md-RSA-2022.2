@@ -51,7 +51,7 @@ int loadAndProcessMessage(mpz_t n, mpz_t e)
     }
 }
 
-int encrypt()
+int main()
 {
     mpz_t n, e;
     mpz_inits(n, e, NULL);
