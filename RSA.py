@@ -95,7 +95,7 @@ class App(customtkinter.CTk):
         self.entry3.grid(row=2, column=0, columnspan=3, padx=(450, 0), pady=(0, 0), sticky="")
         self.second_frame_button_1 = customtkinter.CTkButton(self.second_frame, text="Gerar", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.genPbKey)
         self.second_frame_button_1.grid(row=3, column=0, padx=0, pady=70)
-        self.second_frame_label3 = customtkinter.CTkLabel(self.second_frame, text="\n Chave pública gerada:\n N=  E= ",
+        self.second_frame_label3 = customtkinter.CTkLabel(self.second_frame, text=" ",
                                                              compound="center", font=customtkinter.CTkFont(size=18, weight="bold"))
         self.second_frame_label3.grid(row=4, column=0, padx=20, pady=10)
 
@@ -266,7 +266,6 @@ class App(customtkinter.CTk):
         customtkinter.set_appearance_mode(new_appearance_mode)
 
     
-
 
 if __name__ == "__main__":
     app = App()
