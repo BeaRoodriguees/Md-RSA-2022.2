@@ -25,9 +25,23 @@ Projeto da Equipe Advaced, Para disciplina de Matemática Discreta turma: 2022.1
 ### Bibliotecas
 - GMP - (contornar limitação do int)
 
-Instalação  via terminal (algumas distro linux)
+(algumas distro linux)
 
 `sudo apt-get install libgmp3-dev`
+
+
+
+- Custom TKinter
+
+`pip3 install customtkinter`
+
+
+
+- PIL
+
+`Pip3 install pillow`
+
+
 
 copilado e testado gcc 11.x+
 
