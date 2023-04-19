@@ -3,6 +3,8 @@ import os
 import subprocess
 from tkinter import filedialog
 from PIL import Image
+from tkinter import messagebox
+
 
 
 class App(customtkinter.CTk):
@@ -91,7 +93,7 @@ class App(customtkinter.CTk):
         self.entry2.grid(row=2, column=0, columnspan=2, padx=(0, 0), pady=(0, 0), sticky="")
         self.entry3 = customtkinter.CTkEntry(self.second_frame, placeholder_text="Insira o valor de E...")
         self.entry3.grid(row=2, column=0, columnspan=3, padx=(450, 0), pady=(0, 0), sticky="")
-        self.second_frame_button_1 = customtkinter.CTkButton(self.second_frame, text="Gerar", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.second_frame_button_1_event)
+        self.second_frame_button_1 = customtkinter.CTkButton(self.second_frame, text="Gerar", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.genPbKey)
         self.second_frame_button_1.grid(row=3, column=0, padx=0, pady=70)
         self.second_frame_label3 = customtkinter.CTkLabel(self.second_frame, text="\n Chave pública gerada:\n N=  E= ",
                                                              compound="center", font=customtkinter.CTkFont(size=18, weight="bold"))
@@ -103,40 +105,42 @@ class App(customtkinter.CTk):
 
         self.third_frame_label = customtkinter.CTkLabel(self.third_frame, text="Criptografar Texto\n Digite ou importe o texto a ser criptografado e a chave pública.", 
                                                             compound="center", font=customtkinter.CTkFont(size=18, weight="bold"))
-        self.third_frame_label.grid(row=0, column=0, padx=20, pady=(35, 10))
+        self.third_frame_label.grid(row=0, column=0, padx=0, pady=(15, 10))
 
         self.crypto_text = customtkinter.CTkTextbox(self.third_frame, height=300, width=700)
-        self.crypto_text.grid(row=1, column=0, padx=0, pady=(5, 40))
+        self.crypto_text.grid(row=1, column=0, padx=0, pady=(5, 10))
+        self.status1 = customtkinter.CTkLabel(self.third_frame, text="Status: ", compound="center", font=customtkinter.CTkFont(size=18, weight="bold"))
+        self.status1.grid(row=2, column=0, padx=0, pady=(0, 20))
         self.entry4 = customtkinter.CTkEntry(self.third_frame, placeholder_text="Insira o valor de N...")
-        self.entry4.grid(row=2, column=0, columnspan=3, padx=(0, 225), pady=(0, 0), sticky="")
+        self.entry4.grid(row=3, column=0, columnspan=3, padx=(0, 225), pady=(0, 0), sticky="")
         self.entry5 = customtkinter.CTkEntry(self.third_frame, placeholder_text="Insira o valor de E...")
-        self.entry5.grid(row=2, column=0, columnspan=3, padx=(225, 0), pady=(0, 0), sticky="")
+        self.entry5.grid(row=3, column=0, columnspan=3, padx=(225, 0), pady=(0, 0), sticky="")
         self.btnImport1 = customtkinter.CTkButton(self.third_frame, text="  Importar  Mensagem  ", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.loadMsg1)
-        self.btnImport1.grid(row=3, column=0, padx=(0, 225), pady=(15, 25))
-        self.btnImport2 = customtkinter.CTkButton(self.third_frame, text="Importar Chave Pública", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.second_frame_button_1_event)
-        self.btnImport2.grid(row=3, column=0, padx=(225, 0), pady=(15, 25))
-        self.btnEncrypt = customtkinter.CTkButton(self.third_frame, text="Encriptar", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.second_frame_button_1_event)
-        self.btnEncrypt.grid(row=4, column=0, padx=0, pady=0)
+        self.btnImport1.grid(row=4, column=0, padx=(0, 225), pady=(15, 15))
+        self.btnImport2 = customtkinter.CTkButton(self.third_frame, text="Importar Chave Pública", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.loadPbKey)
+        self.btnImport2.grid(row=4, column=0, padx=(225, 0), pady=(15, 15))
+        self.btnEncrypt = customtkinter.CTkButton(self.third_frame, text="Encriptar", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.encryptMsg)
+        self.btnEncrypt.grid(row=5, column=0, padx=0, pady=0)
         # create des frame
         self.des_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
         self.des_frame.grid_columnconfigure(0, weight=1)
         self.des_frame_label = customtkinter.CTkLabel(self.des_frame, text="Descriptografar Texto\n Digite ou importe o texto a ser descriptografado e a chave privada.",
                                                                 compound="center", font=customtkinter.CTkFont(size=18, weight="bold"))
-        self.des_frame_label.grid(row=0, column=0, padx=20, pady=(35, 10))
+        self.des_frame_label.grid(row=0, column=0, padx=0, pady=(15, 10))
         self.des_text = customtkinter.CTkTextbox(self.des_frame, height=300, width=700, )
-        self.des_text.grid(row=1, column=0, padx=0, pady=(5, 40))
+        self.des_text.grid(row=1, column=0, padx=0, pady=(5, 10))
+        self.status2 = customtkinter.CTkLabel(self.des_frame, text="Status: ", compound="center", font=customtkinter.CTkFont(size=18, weight="bold"))
+        self.status2.grid(row=2, column=0, padx=0, pady=(0, 20))
         self.entry6 = customtkinter.CTkEntry(self.des_frame, placeholder_text="Insira o valor de N...")
-        self.entry6.grid(row=2, column=0, columnspan=3, padx=(0, 225), pady=(0, 0), sticky="")
+        self.entry6.grid(row=3, column=0, columnspan=3, padx=(0, 225), pady=(0, 0), sticky="")
         self.entry7 = customtkinter.CTkEntry(self.des_frame, placeholder_text="Insira o valor de D...")
-        self.entry7.grid(row=2, column=0, columnspan=3, padx=(225, 0), pady=(0, 0), sticky="")
+        self.entry7.grid(row=3, column=0, columnspan=3, padx=(225, 0), pady=(0, 0), sticky="")
         self.btnImport3 = customtkinter.CTkButton(self.des_frame, text="  Importar  Mensagem  ", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.loadMsg2)
-        self.btnImport3.grid(row=3, column=0, padx=(0, 225), pady=(15, 25))
-        self.btnImport4 = customtkinter.CTkButton(self.des_frame, text="Importar Chave Privada", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.second_frame_button_1_event)
-        self.btnImport4.grid(row=3, column=0, padx=(225, 0), pady=(15, 25))
-        self.btnDecrypt = customtkinter.CTkButton(self.des_frame, text="Descriptografar", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.second_frame_button_1_event)
-        self.btnDecrypt.grid(row=4, column=0, padx=0, pady=0)
-
-
+        self.btnImport3.grid(row=4, column=0, padx=(0, 225), pady=(15, 15))
+        self.btnImport4 = customtkinter.CTkButton(self.des_frame, text="Importar Chave Privada", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.loadPvKey)
+        self.btnImport4.grid(row=4, column=0, padx=(225, 0), pady=(15, 15))
+        self.btnDecrypt = customtkinter.CTkButton(self.des_frame, text="Descriptografar", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.decryptMsg)
+        self.btnDecrypt.grid(row=5, column=0, padx=0, pady=0)
 
         # select default frame
         self.select_frame_by_name("Início")
@@ -190,31 +194,72 @@ class App(customtkinter.CTk):
             self.texto = f.read()
             self.des_text.insert("0.0", text=self.texto)
 
-    def second_frame_button_1_event(self):
+    def loadPbKey(self):
+        self.arquivo = filedialog.askopenfilename(initialdir="/", title="Selecione o arquivo", filetypes=(("txt files", "*.txt"), ("all files", "*.*")))
+        with open(self.arquivo, 'r') as f:
+            self.texto = f.read()
+            self.texto = self.texto.split(" ")
+            self.entry4.insert(0, self.texto[0])
+            self.entry5.insert(0, self.texto[1])
+
+    def loadPvKey(self):
+        self.arquivo = filedialog.askopenfilename(initialdir="/", title="Selecione o arquivo", filetypes=(("txt files", "*.txt"), ("all files", "*.*")))
+        with open(self.arquivo, 'r') as f:
+            self.texto = f.read()
+            self.texto = self.texto.split(" ")
+            self.entry6.insert(0, self.texto[0])
+            self.entry7.insert(0, self.texto[1])
+
+    def genPbKey(self):
         file = open('pqekey.txt', 'w')
-        file.write(str(self.entry1.get()))
-        file.write(" ")
-        file.write(str(self.entry2.get()))
-        file.write(" ")
-        file.write(str(self.entry3.get()))
+        file.write(str(self.entry1.get()+" ")+str(self.entry2.get()+" ")+str(self.entry3.get()))
         file.close()
 
         result = []
         win_cmd = './genPublicKey.exe'
-        #shell=True means do not show the command shell
-        #shell=False means show the command shell
-        process = subprocess.Popen('powershell.exe '+win_cmd,
-            shell=False,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE )
+        process = subprocess.Popen('powershell.exe '+win_cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
         for line in process.stdout:
-            print (line)
+            line = line.decode('utf-8').rstrip()
+            result.append(line)       
         result.append(line)
         errcode = process.returncode
-        for line in result:
-            print (line)
         self.second_frame_label3.configure(text=line)
 
+    def encryptMsg(self):
+        file = open('mensagem.txt', 'w')
+        file.write(str(self.crypto_text.get("0.0", "end-1c")))
+        file.close()
+
+        result = []
+        file =  open('publickey.txt', 'w')
+        file.write(str(self.entry4.get())+" "+str(self.entry5.get()))
+        file.close()
+        win_cmd = './encrypt.exe'
+        process = subprocess.Popen('powershell.exe '+win_cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
+        for line in process.stdout:
+            line = line.decode('utf-8').rstrip()
+            result.append(line)       
+        result.append(line)
+        errcode = process.returncode
+        self.status1.configure(text=line)
+
+    def decryptMsg(self):
+        file = open('privatekey.txt.txt', 'w')
+        file.write(str(self.entry6.get())+" "+str(self.entry7.get()))
+        file.close()
+        file = open('mensagem_encriptada.txt', 'w')
+        file.write(str(self.des_text.get("0.0", "end-1c")))
+        file.close()
+
+        result = []
+        win_cmd = './decrypt.exe'
+        process = subprocess.Popen('powershell.exe '+win_cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
+        for line in process.stdout:
+            line = line.decode('utf-8').rstrip()
+            result.append(line)       
+        result.append(line)
+        errcode = process.returncode
+        self.status2.configure(text=line)
 
 
     def change_appearance_mode_event(self, new_appearance_mode):
