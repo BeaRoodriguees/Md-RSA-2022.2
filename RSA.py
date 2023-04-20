@@ -2,9 +2,8 @@ import customtkinter
 import os
 import subprocess
 from tkinter import filedialog
-from PIL import Image, ImageFont, ImageDraw
+from PIL import Image
 import platform
-import emoji
 
 
 
