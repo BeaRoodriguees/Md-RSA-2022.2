@@ -229,6 +229,9 @@ class App(customtkinter.CTk):
             self.entry8.insert(0, self.texto[2])
 
     def genPbKey(self):
+        file = open('pqekey.txt', 'w')
+        file.write(str(self.entry1.get())+" "+str(self.entry2.get())+" "+str(self.entry3.get()))
+        file.close()
         line = ""
         cmd = './bin/genPublicKey' + self.files_extension
 
@@ -267,7 +270,7 @@ class App(customtkinter.CTk):
             msg.close()
 
     def decryptMsg(self):
-        file = open('privatekey.txt', 'w')
+        file = open('pqekey.txt', 'w')
         file.write(str(self.entry6.get())+" "+str(self.entry7.get()) + " " + str(self.entry8.get()))
         file.close()
         file = open('mensagem_encriptada.txt', 'w')
