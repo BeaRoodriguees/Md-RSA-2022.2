@@ -89,6 +89,7 @@ int main(){
     }
 
     mpz_clears(n, p, q, d, e, NULL);
+    printf("Sucesso ao salvar mensagem desencriptar em mensagem_desencriptada.txt");
     exit(EXIT_SUCCESS);
 }
 

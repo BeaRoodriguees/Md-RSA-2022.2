@@ -65,6 +65,7 @@ int main()
         exit(EXIT_FAILURE);
     }
 
+    printf("Sucesso ao salvar mensagem encriptada em mensagem_encriptada.txt");
     mpz_clears(n, e, NULL);
     exit(EXIT_SUCCESS);
 }

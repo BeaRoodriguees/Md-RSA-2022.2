@@ -3,14 +3,21 @@ import os
 import subprocess
 from tkinter import filedialog
 from PIL import Image
-from tkinter import messagebox
+import platform
 
 
 
 class App(customtkinter.CTk):
-    def __init__(self):
+    def __init__(self, os_name):
         super().__init__()
 
+        self.os_name = os_name
+
+        if(os_name=="Windows"):
+            self.files_extension = ".exe"
+        else:
+            self.files_extension = ""
+    
         self.title("Algoritmo de RSA - Matemática Discreta -  UFAL 2022.2")
         self.geometry("1100x580")
 
@@ -72,12 +79,12 @@ class App(customtkinter.CTk):
         self.home_frame_label = customtkinter.CTkLabel(self.home_frame, text="Bem-Vindo!\n Para Iniciar, Selecione uma opção ao lado.",
                                                              compound="center", font=customtkinter.CTkFont(size=18, weight="bold"))
         self.home_frame_label.grid(row=0, column=0, padx=0, pady=60)
-        self.home_frame_label2 = customtkinter.CTkLabel(self.home_frame, text="Projeto Desenvolvido por:\n Arthur Pontes de Miranda Ramos Soares\nBeatriz Rodrigues Cavalcante\nDavi Da Silva Romao\nFelipe Lira Da Silva\nGabriel Gomes De Oliveira\n\n Professor: Bruno Pimentel",
+        self.home_frame_label2 = customtkinter.CTkLabel(self.home_frame, text="Projeto Desenvolvido por:\n Arthur Pontes de Miranda Ramos Soares\nBeatriz Rodrigues Cavalcante\nDavi Da Silva Romao\nFelipe Lira Da Silva\nGabriel Gomes De Oliveira\n\n Professor: Bruno Pimentel\n Disciplina:Matematica Discreta",
                                                              compound="center", font=customtkinter.CTkFont(size=18, weight="bold"))
         self.home_frame_label2.grid(row=1, column=0, padx=0, pady=40)
         self.home_frame_label1 = customtkinter.CTkLabel(self.home_frame, text="Algoritmo RSA desenvolvido em C.\n Front-End desenvolvido em Python.",
                                                              compound="center", font=customtkinter.CTkFont(size=14, weight="bold"))
-        self.home_frame_label1.grid(row=2, column=0, padx=0, pady=120)
+        self.home_frame_label1.grid(row=2, column=0, padx=0, pady=100)
 
 
         # create second frame
@@ -95,7 +102,7 @@ class App(customtkinter.CTk):
         self.entry3.grid(row=2, column=0, columnspan=3, padx=(450, 0), pady=(0, 0), sticky="")
         self.second_frame_button_1 = customtkinter.CTkButton(self.second_frame, text="Gerar", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.genPbKey)
         self.second_frame_button_1.grid(row=3, column=0, padx=0, pady=70)
-        self.second_frame_label3 = customtkinter.CTkLabel(self.second_frame, text=" ",
+        self.second_frame_label3 = customtkinter.CTkLabel(self.second_frame, text="status:",
                                                              compound="center", font=customtkinter.CTkFont(size=18, weight="bold"))
         self.second_frame_label3.grid(row=4, column=0, padx=20, pady=10)
 
@@ -131,10 +138,12 @@ class App(customtkinter.CTk):
         self.des_text.grid(row=1, column=0, padx=0, pady=(5, 10))
         self.status2 = customtkinter.CTkLabel(self.des_frame, text="Status: ", compound="center", font=customtkinter.CTkFont(size=18, weight="bold"))
         self.status2.grid(row=2, column=0, padx=0, pady=(0, 20))
-        self.entry6 = customtkinter.CTkEntry(self.des_frame, placeholder_text="Insira o valor de N...")
-        self.entry6.grid(row=3, column=0, columnspan=3, padx=(0, 225), pady=(0, 0), sticky="")
-        self.entry7 = customtkinter.CTkEntry(self.des_frame, placeholder_text="Insira o valor de D...")
-        self.entry7.grid(row=3, column=0, columnspan=3, padx=(225, 0), pady=(0, 0), sticky="")
+        self.entry6 = customtkinter.CTkEntry(self.des_frame, placeholder_text="Insira o valor de P...")
+        self.entry6.grid(row=3, column=0, columnspan=3, padx=(0, 350), pady=(0, 0), sticky="")
+        self.entry7 = customtkinter.CTkEntry(self.des_frame, placeholder_text="Insira o valor de Q...")
+        self.entry7.grid(row=3, column=0, columnspan=3, padx=(0, 0), pady=(0, 0), sticky="")
+        self.entry8 = customtkinter.CTkEntry(self.des_frame, placeholder_text="Insira o valor de E...")
+        self.entry8.grid(row=3, column=0, columnspan=3, padx=(350, 0), pady=(0, 0), sticky="")
         self.btnImport3 = customtkinter.CTkButton(self.des_frame, text="  Importar  Mensagem  ", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.loadMsg2)
         self.btnImport3.grid(row=4, column=0, padx=(0, 225), pady=(15, 15))
         self.btnImport4 = customtkinter.CTkButton(self.des_frame, text="Importar Chave Privada", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.loadPvKey)
@@ -209,55 +218,58 @@ class App(customtkinter.CTk):
             self.texto = self.texto.split(" ")
             self.entry6.insert(0, self.texto[0])
             self.entry7.insert(0, self.texto[1])
+            self.entry8.insert(0, self.texto[2])
 
     def genPbKey(self):
-        file = open('pqekey.txt', 'w')
-        file.write(str(self.entry1.get()+" ")+str(self.entry2.get()+" ")+str(self.entry3.get()))
-        file.close()
+        line = ""
+        cmd = './bin/genPublicKey' + self.files_extension
 
-        result = []
-        win_cmd = './genPublicKey.exe'
-        process = subprocess.Popen('powershell.exe '+win_cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
-        for line in process.stdout:
-            line = line.decode('utf-8').rstrip()
-            result.append(line)       
-        result.append(line)
+        if(self.os_name=="Windows"):
+            process = subprocess.Popen('powershell.exe '+ cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
+            line = process.stdout.read().decode('utf-8').rstrip()
+        else:
+            process = subprocess.run([cmd], stdout=subprocess.PIPE, stderr=subprocess.PIPE)    
+            line = process.stdout.decode('utf-8').rstrip()
         errcode = process.returncode
         self.second_frame_label3.configure(text=line)
 
     def encryptMsg(self):
+        file = open('publickey.txt', 'w')
+        file.write(str(self.entry4.get())+" "+str(self.entry5.get()))
+        file.close()
         file = open('mensagem.txt', 'w')
         file.write(str(self.crypto_text.get("0.0", "end-1c")))
         file.close()
 
-        result = []
-        file =  open('publickey.txt', 'w')
-        file.write(str(self.entry4.get())+" "+str(self.entry5.get()))
-        file.close()
-        win_cmd = './encrypt.exe'
-        process = subprocess.Popen('powershell.exe '+win_cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
-        for line in process.stdout:
-            line = line.decode('utf-8').rstrip()
-            result.append(line)       
-        result.append(line)
+        line = ""
+        cmd = './bin/encrypt' + self.files_extension
+        
+        if(self.os_name=="Windows"):
+            process = subprocess.Popen('powershell.exe '+ cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
+            line = process.stdout.read().decode('utf-8').rstrip()
+        else:
+            process = subprocess.run([cmd], stdout=subprocess.PIPE, stderr=subprocess.PIPE)    
+            line = process.stdout.decode('utf-8').rstrip()
         errcode = process.returncode
         self.status1.configure(text=line)
 
     def decryptMsg(self):
-        file = open('privatekey.txt.txt', 'w')
-        file.write(str(self.entry6.get())+" "+str(self.entry7.get()))
+        file = open('privatekey.txt', 'w')
+        file.write(str(self.entry6.get())+" "+str(self.entry7.get()) + " " + str(self.entry8.get()))
         file.close()
         file = open('mensagem_encriptada.txt', 'w')
         file.write(str(self.des_text.get("0.0", "end-1c")))
         file.close()
 
-        result = []
-        win_cmd = './decrypt.exe'
-        process = subprocess.Popen('powershell.exe '+win_cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
-        for line in process.stdout:
-            line = line.decode('utf-8').rstrip()
-            result.append(line)       
-        result.append(line)
+        line = ""
+        cmd = './bin/decrypt' + self.files_extension
+    
+        if(self.os_name=="Windows"):
+            process = subprocess.Popen('powershell.exe '+ cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
+            line = process.stdout.read().decode('utf-8').rstrip()
+        else:
+            process = subprocess.run([cmd], stdout=subprocess.PIPE, stderr=subprocess.PIPE)    
+            line = process.stdout.decode('utf-8').rstrip()
         errcode = process.returncode
         self.status2.configure(text=line)
 
@@ -266,7 +278,18 @@ class App(customtkinter.CTk):
         customtkinter.set_appearance_mode(new_appearance_mode)
 
     
+def compile_archives(os_name):
+    extension_name = ""
+
+    if(os_name=="Windows"):
+        extension_name=".exe"
+
+    subprocess.run(["gcc", "decrypt.c", "-o", "./bin/decrypt"+extension_name, "-lgmp"])
+    subprocess.run(["gcc", "encrypt.c", "-o", "./bin/encrypt"+extension_name, "-lgmp"])
+    subprocess.run(["gcc", "genPublicKey.c", "-o", "./bin/genPublicKey"+extension_name, "-lgmp"])
 
 if __name__ == "__main__":
-    app = App()
+    os_name = platform.system()
+    compile_archives(os_name)
+    app = App(os_name)
     app.mainloop()
