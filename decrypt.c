@@ -7,7 +7,7 @@
 
 int loadPrivateKey(mpz_t e, mpz_t p, mpz_t q)
 {
-    FILE *privateKeyFile = fopen("privatekey.txt", "r");
+    FILE *privateKeyFile = fopen("pqekey.txt", "r");
 
     if(privateKeyFile)
     {
