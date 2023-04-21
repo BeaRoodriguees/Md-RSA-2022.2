@@ -81,7 +81,7 @@ class App(customtkinter.CTk):
         self.home_frame_label = customtkinter.CTkLabel(self.home_frame, text="Bem-Vindo!\n Para Iniciar, Selecione uma opção ao lado.",
                                                              compound="center", font=customtkinter.CTkFont(size=18, weight="bold"))
         self.home_frame_label.grid(row=0, column=0, padx=0, pady=60)
-        self.home_frame_label2 = customtkinter.CTkLabel(self.home_frame, text="Projeto Desenvolvido por:\n Arthur Pontes de Miranda Ramos Soares\nBeatriz Rodrigues Cavalcante\nDavi Da Silva Romao\nFelipe Lira Da Silva\nGabriel Gomes De Oliveira\n\n Professor: Bruno Pimentel\n Disciplina: Matemática Discreta",
+        self.home_frame_label2 = customtkinter.CTkLabel(self.home_frame, text="Projeto Desenvolvido por:\n Arthur Pontes de Miranda Ramos Soares\nBeatriz Rodrigues Cavalcante\nDavi Da Silva Romão\nFelipe Lira Da Silva\nGabriel Gomes De Oliveira\n\n Professor: Bruno Pimentel\n Disciplina: Matemática Discreta",
                                                              compound="center", font=customtkinter.CTkFont(size=18, weight="bold"))
         self.home_frame_label2.grid(row=1, column=0, padx=0, pady=40)
         self.home_frame_label1 = customtkinter.CTkLabel(self.home_frame, text="Algoritmo RSA desenvolvido em C.\nInterface desenvolvida em Python.",
