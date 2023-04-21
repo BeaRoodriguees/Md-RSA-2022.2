@@ -68,7 +68,7 @@ class App(customtkinter.CTk):
                                                       image=self.decrypt_image, anchor="w", command=self.frame_4_button_event)
         self.frame_4_button.grid(row=4, column=0, sticky="ew")
 
-        self.appearance_mode_label = customtkinter.CTkLabel(self.navigation_frame, text="Tema:", font=customtkinter.CTkFont(size=15))
+        self.appearance_mode_label = customtkinter.CTkLabel(self.navigation_frame, text="Tema:", font=customtkinter.CTkFont(size=15, weight="bold"))
         self.appearance_mode_label.grid(row=5, column=0, padx=(0,0), pady=(20,0), sticky="s")
 
         self.appearance_mode_menu = customtkinter.CTkOptionMenu(self.navigation_frame, values=["System", "Dark","Light"],
@@ -109,7 +109,7 @@ class App(customtkinter.CTk):
         self.entry3.grid(row=2, column=0, columnspan=3, padx=(450, 0), pady=(0, 0), sticky="")
         self.second_frame_button_1 = customtkinter.CTkButton(self.second_frame, text="Gerar", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.genPbKey)
         self.second_frame_button_1.grid(row=3, column=0, padx=0, pady=70)
-        self.second_frame_label3 = customtkinter.CTkLabel(self.second_frame, text="status:",
+        self.second_frame_label3 = customtkinter.CTkLabel(self.second_frame, text="Status:",
                                                              compound="center", font=customtkinter.CTkFont(size=18, weight="bold"))
         self.second_frame_label3.grid(row=4, column=0, padx=20, pady=10)
 
@@ -138,7 +138,7 @@ class App(customtkinter.CTk):
         # create des frame
         self.des_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
         self.des_frame.grid_columnconfigure(0, weight=1)
-        self.des_frame_label = customtkinter.CTkLabel(self.des_frame, text="Descriptografar Texto\n Digite ou importe o texto a ser descriptografado e a chave privada.",
+        self.des_frame_label = customtkinter.CTkLabel(self.des_frame, text="Descriptografar Texto\n Digite ou importe o texto a ser descriptografado e os números P, Q, E.",
                                                                 compound="center", font=customtkinter.CTkFont(size=18, weight="bold"))
         self.des_frame_label.grid(row=0, column=0, padx=0, pady=(15, 10))
         self.des_text = customtkinter.CTkTextbox(self.des_frame, height=300, width=700, )
@@ -151,10 +151,10 @@ class App(customtkinter.CTk):
         self.entry7.grid(row=3, column=0, columnspan=3, padx=(0, 0), pady=(0, 0), sticky="")
         self.entry8 = customtkinter.CTkEntry(self.des_frame, placeholder_text="Insira o valor de E...")
         self.entry8.grid(row=3, column=0, columnspan=3, padx=(350, 0), pady=(0, 0), sticky="")
-        self.btnImport3 = customtkinter.CTkButton(self.des_frame, text="  Importar  Mensagem  ", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.loadMsg2)
-        self.btnImport3.grid(row=4, column=0, padx=(0, 225), pady=(15, 15))
-        self.btnImport4 = customtkinter.CTkButton(self.des_frame, text="Importar Chave Privada", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.loadPvKey)
-        self.btnImport4.grid(row=4, column=0, padx=(225, 0), pady=(15, 15))
+        self.btnImport3 = customtkinter.CTkButton(self.des_frame, text="  Importar  Msg  ", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.loadMsg2)
+        self.btnImport3.grid(row=4, column=0, padx=(0, 200), pady=(15, 15))
+        self.btnImport4 = customtkinter.CTkButton(self.des_frame, text=" Importar P ,Q ,E ", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.loadPvKey)
+        self.btnImport4.grid(row=4, column=0, padx=(200, 0), pady=(15, 15))
         self.btnDecrypt = customtkinter.CTkButton(self.des_frame, text="Descriptografar", compound="top",font=customtkinter.CTkFont(size=15, weight="bold",),command=self.decryptMsg)
         self.btnDecrypt.grid(row=5, column=0, padx=0, pady=0)
 
