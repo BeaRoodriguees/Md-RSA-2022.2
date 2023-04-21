@@ -77,4 +77,4 @@ Interface em Python, testado com `python 3.11`
 
 ![img3](https://i.ibb.co/y6BqSgw/3.png)
 
-![img4](https://i.ibb.co/K2q650c/4.png)
+![img4](https://i.ibb.co/pxWF1Kj/4.png)
