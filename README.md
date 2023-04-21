@@ -9,7 +9,7 @@ Projeto da Equipe Advaced, Para disciplina de Matemática Discreta, turma 2022.1
 
 - Arthur Pontes de Miranda Ramos Soares
 - Beatriz Rodrigues Cavalcante
-- Davi Da Silva Romao
+- Davi Da Silva Romão
 - Felipe Lira Da Silva
 - Gabriel Gomes De Oliveira
 
